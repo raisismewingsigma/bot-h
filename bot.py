@@ -1,12 +1,14 @@
 import discord
 from discord.ext import commands
 from config import token  # Import the bot's token from configuration file
+from config import detect_url
 
 intents = discord.Intents.default()
 intents.members = True  # Allows the bot to work with users and ban them
 intents.message_content = True
 
 bot = commands.Bot(command_prefix='!', intents=intents)
+
 
 @bot.event
 async def on_ready():
@@ -27,6 +29,12 @@ async def ban(ctx, member: discord.Member = None):
             await ctx.send(f"User {member.name} was banned.")
     else:
         await ctx.send("This command should point to the user you want to ban. For example: `!ban @user`")
+
+
+@bot.event
+async def on_message(message):
+    detect_url
+    await bot.process_commands(message)
 
 @ban.error
 async def ban_error(ctx, error):
